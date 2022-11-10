@@ -25,6 +25,6 @@ func main() {
 			ctx.JSON(http.StatusUnauthorized, nil)
 		}
 	})
-	port := "8080"
+	port := "3000"
 	server.Run(":" + port)
 }
