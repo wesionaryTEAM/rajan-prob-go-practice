@@ -1,13 +1,19 @@
 package main
 
 import (
+	initialize "example/rajan-prob-go-practice/Initialize"
 	"example/rajan-prob-go-practice/controllers"
+	"example/rajan-prob-go-practice/routes"
 	"example/rajan-prob-go-practice/service"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
+func init(){
+	initialize.LoadEnv()
+	initialize.ConnectDB()
+}
 func main() {
 	var loginService service.LoginService = service.StaticLoginService()
 	var jwtService service.JWTService = service.JWTAuthService()
@@ -15,6 +21,9 @@ func main() {
 
 	server := gin.New()
 
+	routes.PostRoutes(server);
+	routes.UserRoutes(server);
+	routes.MovieRoutes(server);
 	server.POST("/login", func(ctx *gin.Context) {
 		token := loginController.Login(ctx)
 		if token != "" {
@@ -25,6 +34,7 @@ func main() {
 			ctx.JSON(http.StatusUnauthorized, nil)
 		}
 	})
+
 	port := "3000"
 	server.Run(":" + port)
 }
