@@ -3,6 +3,7 @@ package controllers
 import (
 	initialize "example/rajan-prob-go-practice/Initialize"
 	"example/rajan-prob-go-practice/models"
+	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
@@ -11,7 +12,11 @@ func CreateUser(c *gin.Context) {
 
 var user models.User
 
-c.Bind(&user)
+if err:=c.ShouldBindJSON(&user); err!=nil{
+	c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	return
+}
+
 
 result := initialize.DB.Create(&user) 
 
