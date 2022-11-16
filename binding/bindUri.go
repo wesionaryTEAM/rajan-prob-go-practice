@@ -1,25 +1,25 @@
 package main
 
-import (
-	"net/http"
+// import (
+// 	"net/http"
 
-	"github.com/gin-gonic/gin"
-)
+// 	"github.com/gin-gonic/gin"
+// )
 
-type Person struct {
-  ID string `uri:"id" binding:"required,uuid"`
-  Name string `uri:"name" binding:"required"`
-}
+// type Person struct {
+//   ID string `uri:"id" binding:"required,uuid"`
+//   Name string `uri:"name" binding:"required"`
+// }
 
-func main() {
-  route := gin.Default()
-  route.GET("/:name/:id", func(c *gin.Context) {
-    var person Person
-    if err := c.ShouldBindUri(&person); err != nil {
-      c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
-      return
-    }
-    c.JSON(http.StatusOK, gin.H{"name": person.Name, "uuid": person.ID})
-  })
-  route.Run(":8085")
-}
+// func main() {
+//   route := gin.Default()
+//   route.GET("/:name/:id", func(c *gin.Context) {
+//     var person Person
+//     if err := c.ShouldBindUri(&person); err != nil {
+//       c.JSON(http.StatusBadRequest, gin.H{"msg": err.Error()})
+//       return
+//     }
+//     c.JSON(http.StatusOK, gin.H{"name": person.Name, "uuid": person.ID})
+//   })
+//   route.Run(":8085")
+// }
